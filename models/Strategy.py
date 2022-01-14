@@ -95,7 +95,7 @@ class Strategy:
             # Logger.warning(f"{str(now)} | Insufficient funds, ignoring buy signal.")
             return False
 
-        # criteria for a buy signal 1
+        # criteria for a buy signal 1 (macd > signal and ema12 > ema26 crossover occurred)
         if (
             (
                 bool(self._df_last["ema12gtema26co"].values[0]) is True
@@ -128,10 +128,11 @@ class Strategy:
 
             return True
 
-        # criteria for buy signal 2 (optionally add additional buy signals)
+        # criteria for buy signal 2 ( ema12 > ema26 and macd > signal crossover occured)
+        # (optionally add additional buy signals)
         elif (
             (
-                bool(self._df_last["ema12gtema26co"].values[0]) is True
+                bool(self._df_last["ema12gtema26"].values[0]) is True
                 or self.app.disableBuyEMA()
             )
             and bool(self._df_last["macdgtsignalco"].values[0]) is True
